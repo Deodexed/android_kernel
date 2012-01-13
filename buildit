@@ -1,11 +1,14 @@
-###Credit to poitee and JT1134 for the build script's###
+##Credit to poitee and JT1134 for the build script's###
+rm ~/android/system/device/samsung/toro/kernel
+rm ~/android/system/device/samsung/tuna/kernel
 cd ~/android/system/kernel/omap/
 make clean mrproper
-make ARCH=arm tuna_defconfig
+make ARCH=arm deodexed_defconfig
 make ARCH=arm -j8 CROSS_COMPILE=~/android/system/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+cp ~/android/system/kernel/omap/arch/arm/boot/zImage ~/android/system/device/samsung/toro/kernel
+cp ~/android/system/kernel/omap/arch/arm/boot/zImage ~/android/system/device/samsung/tuna/kernel
 mv ~/android/system/kernel/omap/arch/arm/boot/zImage ~/android/system/kernel/AnyKernel/kernel
 cd ~/android/system/kernel/AnyKernel
 ZIP="ModAGnex_Kernel-`date +%m%d`.zip"
 zip -r $ZIP .
-mv *.zip /home/deodexed/android/system/kernel/AnyKernel/
-rm /home/deodexed/android/system/kernel/omap/arch/arm/boot/zImage
+rm ~/android/system/kernel/AnyKernel/kernel/zImage
